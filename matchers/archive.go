@@ -1,7 +1,5 @@
 package matchers
 
-import "encoding/binary"
-
 const (
 	ZstdMagicSkippableStart = 0x184D2A50
 	ZstdMagicSkippableMask  = 0xFFFFFFF0
@@ -101,114 +99,39 @@ var (
 )
 
 func bytePrefixMatcher(magicPattern []byte) Matcher {
-	return func(data []byte) bool {
-		return compareBytes(data, magicPattern, 0)
-	}
+	_ = "STUB: not implemented"
+	return *new(Matcher)
 }
 
-func Zip(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x50 && buf[1] == 0x4B &&
-		(buf[2] == 0x3 || buf[2] == 0x5 || buf[2] == 0x7) &&
-		(buf[3] == 0x4 || buf[3] == 0x6 || buf[3] == 0x8)
-}
+func Zip(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Tar(buf []byte) bool {
-	return len(buf) > 261 &&
-		buf[257] == 0x75 && buf[258] == 0x73 &&
-		buf[259] == 0x74 && buf[260] == 0x61 &&
-		buf[261] == 0x72
-}
+func Tar(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Rar(buf []byte) bool {
-	return len(buf) > 6 &&
-		buf[0] == 0x52 && buf[1] == 0x61 && buf[2] == 0x72 &&
-		buf[3] == 0x21 && buf[4] == 0x1A && buf[5] == 0x7 &&
-		(buf[6] == 0x0 || buf[6] == 0x1)
-}
+func Rar(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Swf(buf []byte) bool {
-	return len(buf) > 2 &&
-		(buf[0] == 0x43 || buf[0] == 0x46) &&
-		buf[1] == 0x57 && buf[2] == 0x53
-}
+func Swf(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Cab(buf []byte) bool {
-	return len(buf) > 3 &&
-		((buf[0] == 0x4D && buf[1] == 0x53 && buf[2] == 0x43 && buf[3] == 0x46) ||
-			(buf[0] == 0x49 && buf[1] == 0x53 && buf[2] == 0x63 && buf[3] == 0x28))
-}
+func Cab(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Eot(buf []byte) bool {
-	return len(buf) > 35 &&
-		buf[34] == 0x4C && buf[35] == 0x50 &&
-		((buf[8] == 0x02 && buf[9] == 0x00 &&
-			buf[10] == 0x01) || (buf[8] == 0x01 &&
-			buf[9] == 0x00 && buf[10] == 0x00) ||
-			(buf[8] == 0x02 && buf[9] == 0x00 &&
-				buf[10] == 0x02))
-}
+func Eot(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Z(buf []byte) bool {
-	return len(buf) > 1 &&
-		((buf[0] == 0x1F && buf[1] == 0xA0) ||
-			(buf[0] == 0x1F && buf[1] == 0x9D))
-}
+func Z(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Rpm(buf []byte) bool {
-	return len(buf) > 96 &&
-		buf[0] == 0xED && buf[1] == 0xAB &&
-		buf[2] == 0xEE && buf[3] == 0xDB
-}
+func Rpm(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Elf(buf []byte) bool {
-	return len(buf) > 52 &&
-		buf[0] == 0x7F && buf[1] == 0x45 &&
-		buf[2] == 0x4C && buf[3] == 0x46
-}
+func Elf(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Dcm(buf []byte) bool {
-	return len(buf) > 131 &&
-		buf[128] == 0x44 && buf[129] == 0x49 &&
-		buf[130] == 0x43 && buf[131] == 0x4D
-}
+func Dcm(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Iso(buf []byte) bool {
-	return len(buf) > 32773 &&
-		buf[32769] == 0x43 && buf[32770] == 0x44 &&
-		buf[32771] == 0x30 && buf[32772] == 0x30 &&
-		buf[32773] == 0x31
-}
+func Iso(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func MachO(buf []byte) bool {
-	return len(buf) > 3 && ((buf[0] == 0xFE && buf[1] == 0xED && buf[2] == 0xFA && buf[3] == 0xCF) ||
-		(buf[0] == 0xFE && buf[1] == 0xED && buf[2] == 0xFA && buf[3] == 0xCE) ||
-		(buf[0] == 0xBE && buf[1] == 0xBA && buf[2] == 0xFE && buf[3] == 0xCA) ||
-		// Big endian versions below here...
-		(buf[0] == 0xCF && buf[1] == 0xFA && buf[2] == 0xED && buf[3] == 0xFE) ||
-		(buf[0] == 0xCE && buf[1] == 0xFA && buf[2] == 0xED && buf[3] == 0xFE) ||
-		(buf[0] == 0xCA && buf[1] == 0xFE && buf[2] == 0xBA && buf[3] == 0xBE))
-}
+func MachO(buf []byte) bool { _ = "STUB: not implemented"; return false }
+
+// Big endian versions below here...
 
 // Zstandard compressed data is made of one or more frames.
 // There are two frame formats defined by Zstandard: Zstandard frames and Skippable frames.
 // See more details from https://tools.ietf.org/id/draft-kucherawy-dispatch-zstd-00.html#rfc.section.2
-func Zst(buf []byte) bool {
-	if compareBytes(buf, zstdMagic, 0) {
-		return true
-	} else {
-		// skippable frames
-		if len(buf) < 8 {
-			return false
-		}
-		if binary.LittleEndian.Uint32(buf[:4])&ZstdMagicSkippableMask == ZstdMagicSkippableStart {
-			userDataLength := binary.LittleEndian.Uint32(buf[4:8])
-			if len(buf) < 8+int(userDataLength) {
-				return false
-			}
-			nextFrame := buf[8+userDataLength:]
-			return Zst(nextFrame)
-		}
-		return false
-	}
-}
+func Zst(buf []byte) bool { _ = "STUB: not implemented"; return false }
+
+// skippable frames

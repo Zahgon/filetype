@@ -7,10 +7,4 @@ type Type struct {
 }
 
 // NewType creates a new Type
-func NewType(ext, mime string) Type {
-	t := Type{
-		MIME:      NewMIME(mime),
-		Extension: ext,
-	}
-	return Add(t)
-}
+func NewType(ext, mime string) Type { _ = "STUB: not implemented"; return *new(Type) }

@@ -24,62 +24,20 @@ var Audio = Map{
 	TypeAiff: Aiff,
 }
 
-func Midi(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x4D && buf[1] == 0x54 &&
-		buf[2] == 0x68 && buf[3] == 0x64
-}
+func Midi(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Mp3(buf []byte) bool {
-	return len(buf) > 2 &&
-		((buf[0] == 0x49 && buf[1] == 0x44 && buf[2] == 0x33) ||
-			(buf[0] == 0xFF && buf[1] == 0xfb))
-}
+func Mp3(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func M4a(buf []byte) bool {
-	return len(buf) > 10 &&
-		((buf[4] == 0x66 && buf[5] == 0x74 && buf[6] == 0x79 &&
-			buf[7] == 0x70 && buf[8] == 0x4D && buf[9] == 0x34 && buf[10] == 0x41) ||
-			(buf[0] == 0x4D && buf[1] == 0x34 && buf[2] == 0x41 && buf[3] == 0x20))
-}
+func M4a(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Ogg(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x4F && buf[1] == 0x67 &&
-		buf[2] == 0x67 && buf[3] == 0x53
-}
+func Ogg(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Flac(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x66 && buf[1] == 0x4C &&
-		buf[2] == 0x61 && buf[3] == 0x43
-}
+func Flac(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Wav(buf []byte) bool {
-	return len(buf) > 11 &&
-		buf[0] == 0x52 && buf[1] == 0x49 &&
-		buf[2] == 0x46 && buf[3] == 0x46 &&
-		buf[8] == 0x57 && buf[9] == 0x41 &&
-		buf[10] == 0x56 && buf[11] == 0x45
-}
+func Wav(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Amr(buf []byte) bool {
-	return len(buf) > 11 &&
-		buf[0] == 0x23 && buf[1] == 0x21 &&
-		buf[2] == 0x41 && buf[3] == 0x4D &&
-		buf[4] == 0x52 && buf[5] == 0x0A
-}
+func Amr(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Aac(buf []byte) bool {
-	return len(buf) > 1 &&
-		((buf[0] == 0xFF && buf[1] == 0xF1) ||
-			(buf[0] == 0xFF && buf[1] == 0xF9))
-}
+func Aac(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Aiff(buf []byte) bool {
-	return len(buf) > 11 &&
-		buf[0] == 0x46 && buf[1] == 0x4F &&
-		buf[2] == 0x52 && buf[3] == 0x4D &&
-		buf[8] == 0x41 && buf[9] == 0x49 &&
-		buf[10] == 0x46 && buf[11] == 0x46
-}
+func Aiff(buf []byte) bool { _ = "STUB: not implemented"; return false }

@@ -22,27 +22,13 @@ var MatcherKeys []types.Type
 
 // Create and register a new type matcher function
 func NewMatcher(kind types.Type, fn Matcher) TypeMatcher {
-	matcher := func(buf []byte) types.Type {
-		if fn(buf) {
-			return kind
-		}
-		return types.Unknown
-	}
-
-	Matchers[kind] = matcher
-	// prepend here so any user defined matchers get added first
-	MatcherKeys = append([]types.Type{kind}, MatcherKeys...)
-	return matcher
+	_ = "STUB: not implemented"
+	return *new(TypeMatcher)
 }
 
-func register(matchers ...Map) {
-	MatcherKeys = MatcherKeys[:0]
-	for _, m := range matchers {
-		for kind, matcher := range m {
-			NewMatcher(kind, matcher)
-		}
-	}
-}
+// prepend here so any user defined matchers get added first
+
+func register(matchers ...Map) { _ = "STUB: not implemented"; return }
 
 func init() {
 	// Arguments order is intentional

@@ -1,7 +1,5 @@
 package matchers
 
-import "github.com/h2non/filetype/matchers/isobmff"
-
 var (
 	TypeJpeg     = newType("jpg", "image/jpeg")
 	TypeJpeg2000 = newType("jp2", "image/jp2")
@@ -38,137 +36,41 @@ var Image = Map{
 	TypeAvif:     Avif,
 }
 
-func Jpeg(buf []byte) bool {
-	return len(buf) > 2 &&
-		buf[0] == 0xFF &&
-		buf[1] == 0xD8 &&
-		buf[2] == 0xFF
-}
+func Jpeg(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Jpeg2000(buf []byte) bool {
-	return len(buf) > 12 &&
-		buf[0] == 0x0 &&
-		buf[1] == 0x0 &&
-		buf[2] == 0x0 &&
-		buf[3] == 0xC &&
-		buf[4] == 0x6A &&
-		buf[5] == 0x50 &&
-		buf[6] == 0x20 &&
-		buf[7] == 0x20 &&
-		buf[8] == 0xD &&
-		buf[9] == 0xA &&
-		buf[10] == 0x87 &&
-		buf[11] == 0xA &&
-		buf[12] == 0x0
-}
+func Jpeg2000(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Png(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x89 && buf[1] == 0x50 &&
-		buf[2] == 0x4E && buf[3] == 0x47
-}
+func Png(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Gif(buf []byte) bool {
-	return len(buf) > 2 &&
-		buf[0] == 0x47 && buf[1] == 0x49 && buf[2] == 0x46
-}
+func Gif(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Webp(buf []byte) bool {
-	return len(buf) > 11 &&
-		buf[8] == 0x57 && buf[9] == 0x45 &&
-		buf[10] == 0x42 && buf[11] == 0x50
-}
+func Webp(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func CR2(buf []byte) bool {
-	return len(buf) > 10 &&
-		((buf[0] == 0x49 && buf[1] == 0x49 && buf[2] == 0x2A && buf[3] == 0x0) || // Little Endian
-			(buf[0] == 0x4D && buf[1] == 0x4D && buf[2] == 0x0 && buf[3] == 0x2A)) && // Big Endian
-		buf[8] == 0x43 && buf[9] == 0x52 && // CR2 magic word
-		buf[10] == 0x02 // CR2 major version
-}
+func CR2(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Tiff(buf []byte) bool {
-	return len(buf) > 10 &&
-		((buf[0] == 0x49 && buf[1] == 0x49 && buf[2] == 0x2A && buf[3] == 0x0) || // Little Endian
-			(buf[0] == 0x4D && buf[1] == 0x4D && buf[2] == 0x0 && buf[3] == 0x2A)) && // Big Endian
-		!CR2(buf) // To avoid conflicts differentiate Tiff from CR2
-}
+// Little Endian
+// Big Endian
+// CR2 magic word
+// CR2 major version
 
-func Bmp(buf []byte) bool {
-	return len(buf) > 1 &&
-		buf[0] == 0x42 &&
-		buf[1] == 0x4D
-}
+func Tiff(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Jxr(buf []byte) bool {
-	return len(buf) > 2 &&
-		buf[0] == 0x49 &&
-		buf[1] == 0x49 &&
-		buf[2] == 0xBC
-}
+// Little Endian
+// Big Endian
+// To avoid conflicts differentiate Tiff from CR2
 
-func Psd(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x38 && buf[1] == 0x42 &&
-		buf[2] == 0x50 && buf[3] == 0x53
-}
+func Bmp(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Ico(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x00 && buf[1] == 0x00 &&
-		buf[2] == 0x01 && buf[3] == 0x00
-}
+func Jxr(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Heif(buf []byte) bool {
-	if !isobmff.IsISOBMFF(buf) {
-		return false
-	}
+func Psd(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-	majorBrand, _, compatibleBrands := isobmff.GetFtyp(buf)
-	if majorBrand == "heic" {
-		return true
-	}
+func Ico(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-	if majorBrand == "mif1" || majorBrand == "msf1" {
-		for _, compatibleBrand := range compatibleBrands {
-			if compatibleBrand == "heic" {
-				return true
-			}
-		}
-	}
+func Heif(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-	return false
-}
+func Dwg(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Dwg(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x41 && buf[1] == 0x43 &&
-		buf[2] == 0x31 && buf[3] == 0x30
-}
+func Exr(buf []byte) bool { _ = "STUB: not implemented"; return false }
 
-func Exr(buf []byte) bool {
-	return len(buf) > 3 &&
-		buf[0] == 0x76 && buf[1] == 0x2f &&
-		buf[2] == 0x31 && buf[3] == 0x01
-}
-
-func Avif(buf []byte) bool {
-	if !isobmff.IsISOBMFF(buf) {
-		return false
-	}
-
-	majorBrand, _, compatibleBrands := isobmff.GetFtyp(buf)
-	if majorBrand == "avif" {
-		return true
-	}
-
-	if majorBrand == "mif1" || majorBrand == "msf1" {
-		for _, compatibleBrand := range compatibleBrands {
-			if compatibleBrand == "avif" {
-				return true
-			}
-		}
-	}
-
-	return false
-}
+func Avif(buf []byte) bool { _ = "STUB: not implemented"; return false }

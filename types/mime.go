@@ -8,7 +8,4 @@ type MIME struct {
 }
 
 // Creates a new MIME type
-func NewMIME(mime string) MIME {
-	kind, subtype := splitMime(mime)
-	return MIME{Type: kind, Subtype: subtype, Value: mime}
-}
+func NewMIME(mime string) MIME { _ = "STUB: not implemented"; return *new(MIME) }
